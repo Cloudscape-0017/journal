@@ -130,4 +130,5 @@
     urls.clear(); journal = null; gate.hidden = false; status.textContent = ''; field.value = '';
     document.title = '云景手记 · 访问密码'; field.focus();
   });
+  button.disabled = false;
 })();
