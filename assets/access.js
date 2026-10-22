@@ -36,6 +36,7 @@
     csp.httpEquiv = 'Content-Security-Policy';
     csp.content = "default-src 'none';script-src blob:;style-src blob:;img-src blob: data:;connect-src 'none';object-src 'none';base-uri 'none';form-action 'none'";
     doc.head.prepend(csp);
+    doc.documentElement.dataset.secureFrame = 'true';
     doc.documentElement.dataset.canonicalUrl = new URL(route, root).href;
     doc.querySelectorAll('img[src],script[src],link[href]').forEach(el => {
       const name = el.hasAttribute('src') ? 'src' : 'href';
