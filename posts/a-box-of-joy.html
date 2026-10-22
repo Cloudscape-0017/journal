@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#f7f5eb">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none';script-src 'self' blob:;style-src 'self' blob:;img-src 'self' blob: data:;connect-src 'self';frame-src 'self' blob:;base-uri 'self';form-action 'none';object-src 'none'">
+  <title>云景手记 · 访问密码</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/access.css?v=20261022-secure">
+  <script defer src="../assets/access.js?v=20261022-secure"></script>
+</head>
+<body data-root="../">
+  <main class="gate" id="gate">
+    <a class="gate-brand" href="../index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 21c-1-7 7-11 12-6 5-3 12 1 10 7H9Z"/><path d="M8 28h24M13 33h14"/></svg><span>云景手记<small>Cloudscape journal</small></span></a>
+    <section class="gate-card" aria-labelledby="gate-title">
+      <div class="closed-journal" aria-hidden="true"><span class="journal-ribbon"></span><svg viewBox="0 0 40 40"><path d="M9 21c-1-7 7-11 12-6 5-3 12 1 10 7H9Z"/><path d="M8 28h24M13 33h14"/></svg><span class="journal-line"></span></div>
+      <p class="gate-category">照片 · 日常 · 小小收藏</p>
+      <h1 id="gate-title">输入密码，翻开手记。</h1>
+      <p class="gate-description">一些照片，一些片刻。<br>留在这一页，慢慢分享。</p>
+      <form id="unlock-form">
+        <label for="access-password">访问密码</label>
+        <div class="password-field"><input id="access-password" name="password" type="password" autocomplete="current-password" required spellcheck="false" aria-describedby="access-status"><button type="button" id="show-password" aria-label="显示密码" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
+        <button class="unlock-button" id="unlock-button" type="submit"><span>打开手记</span><span aria-hidden="true">→</span></button>
+        <p class="access-status" id="access-status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="password-note">请向分享者获取访问密码。</p>
+    </section>
+    <footer class="gate-footer"><span>© 2026 云景</span><span>喜欢的日常，值得留一页。</span></footer>
+  </main>
+  <iframe id="journal-frame" title="云景手记内容" allow="clipboard-write" hidden></iframe>
+  <button class="lock-button" id="lock-button" type="button" hidden aria-label="锁定手记"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2"/></svg><span>锁定</span></button>
+</body>
+</html>
