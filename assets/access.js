@@ -81,8 +81,9 @@
   });
   form.addEventListener('submit', async event => {
     event.preventDefault(); if (busy) return;
+    const submittedPassword = field.value;
     if (!crypto.subtle) { status.textContent = '当前浏览器无法安全解锁，请使用新版浏览器。'; return; }
-    busy = true; button.disabled = true; button.querySelector('span').textContent = '正在解锁…';
+    busy = true; field.disabled = true; document.querySelector('#show-password').disabled = true; button.disabled = true; button.querySelector('span').textContent = '正在解锁…';
     status.textContent = '正在打开这一页日常。'; status.classList.add('is-working');
     try {
       const response = await fetch(new URL('vault.json', root), {cache:'no-store'});
@@ -90,7 +91,7 @@
       const config = await response.json();
       if (config.enabled === false) { status.textContent = '这本手记暂时不开放访问。'; return; }
       if (config.version !== 1 || config.iterations < 200000 || config.iterations > 1000000 || config.file !== 'journal.bin') throw new Error('Invalid configuration');
-      const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(field.value), 'PBKDF2', false, ['deriveKey']);
+      const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(submittedPassword), 'PBKDF2', false, ['deriveKey']);
       const key = await crypto.subtle.deriveKey({name:'PBKDF2',salt:bytes(config.salt),iterations:config.iterations,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['decrypt']);
       const encrypted = await fetch(new URL(config.file, root), {cache:'no-store'});
       if (!encrypted.ok) throw new Error('Network');
@@ -107,7 +108,8 @@
       status.textContent = error.name === 'OperationError' ? '密码不正确，请重新输入。' : '暂时无法打开，请检查网络后重试。';
       field.focus(); field.select();
     } finally {
-      busy = false; button.disabled = false; button.querySelector('span').textContent = '打开手记'; status.classList.remove('is-working');
+      busy = false; field.disabled = false; document.querySelector('#show-password').disabled = false; button.disabled = false; button.querySelector('span').textContent = '打开手记'; status.classList.remove('is-working');
+      if (!gate.hidden && status.textContent) { field.focus(); field.select(); }
     }
   });
   addEventListener('message', event => {
